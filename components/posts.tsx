@@ -2,13 +2,14 @@ import { formatDate } from "@/lib/format";
 import LikeButton from "./like-icon";
 import { Post as PostInteface } from "@/lib/posts";
 import { togglePostLikeStatus } from "@/actions/posts";
-import { FormEvent } from "react";
 
 interface Props {
-  post: PostInteface;
   posts?: PostInteface[];
 }
-function Post({ post }: Props) {
+interface PostProps{
+  post:PostInteface
+}
+function Post({ post }: PostProps) {
   return (
     <article className="post">
       <div className="post-image">
@@ -41,6 +42,7 @@ function Post({ post }: Props) {
 }
 
 export default function Posts({ posts }: Props) {
+ 
   if (!posts || posts.length === 0) {
     return <p>There are no posts yet. Maybe start sharing some?</p>;
   }
