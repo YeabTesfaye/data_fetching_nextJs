@@ -1,7 +1,9 @@
 "use server";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { uploadImage } from "@/lib/cloudinary";
 import { storePost, updatePostLikeStatus } from "@/lib/posts";
-import { redirect } from "next/navigation";
+
 
 type FormState = {
   errors: [];
@@ -37,8 +39,6 @@ export async function createPost(prevState: FormState, formData: FormData) {
 }
 
 export async function togglePostLikeStatus(postId: number, formData: FormData) {
-  // console.log(formData);
-  console.log("post Id", postId);
-  console.log("formdata", formData)
-  updatePostLikeStatus(postId, 1);
+  updatePostLikeStatus(postId, 2);
+  revalidatePath('/feed');
 }
