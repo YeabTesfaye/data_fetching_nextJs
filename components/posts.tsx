@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { formatDate } from "@/lib/format";
 import LikeButton from "./like-icon";
 import { Post as PostInteface } from "@/lib/posts";
@@ -6,14 +7,14 @@ import { togglePostLikeStatus } from "@/actions/posts";
 interface Props {
   posts?: PostInteface[];
 }
-interface PostProps{
-  post:PostInteface
+interface PostProps {
+  post: PostInteface;
 }
 function Post({ post }: PostProps) {
   return (
     <article className="post">
       <div className="post-image">
-        <img src={post?.image} alt={post?.title} />
+        <Image fill src={post?.image} alt={post?.title} />
       </div>
       <div className="post-content">
         <header>
@@ -42,7 +43,6 @@ function Post({ post }: PostProps) {
 }
 
 export default function Posts({ posts }: Props) {
- 
   if (!posts || posts.length === 0) {
     return <p>There are no posts yet. Maybe start sharing some?</p>;
   }

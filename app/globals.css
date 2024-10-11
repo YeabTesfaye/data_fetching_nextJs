@@ -167,6 +167,11 @@ main {
 .post-content {
   flex: 1;
 }
+.post-image{
+  position: relative;
+  width: 8rem;
+  height: 6rem;
+}
 
 .post h2,
 .post p {

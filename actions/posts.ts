@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import { uploadImage } from "@/lib/cloudinary";
 import { storePost, updatePostLikeStatus } from "@/lib/posts";
 
-
 type FormState = {
   errors: [];
 };
@@ -26,7 +25,7 @@ export async function createPost(prevState: FormState, formData: FormData) {
   try {
     imageUrl = await uploadImage(image);
   } catch (error) {
-    throw new Error("");
+    return { errors: ["Failed to upload image. Please try again later."] };
   }
   if (errors.length > 0) return { errors };
   await storePost({
@@ -35,11 +34,11 @@ export async function createPost(prevState: FormState, formData: FormData) {
     content,
     userId: 1,
   });
-  revalidatePath("/", 'layout')
+  revalidatePath("/", "layout");
   redirect("/feed");
 }
 
 export async function togglePostLikeStatus(postId: number) {
   updatePostLikeStatus(postId, 2);
-  revalidatePath('/feed');
+  revalidatePath("/feed");
 }

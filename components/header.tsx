@@ -1,13 +1,12 @@
-import logo from "@/assets/logo.png";
 import Link from "next/link";
-
-import React from "react";
+import Image from "next/image";
+import logo from "@/assets/logo.png";
 
 const Header = () => {
   return (
     <header id="main-header">
       <Link href="/">
-        <img src={logo.src} alt="Mobile phone with posts feed on it" />
+        <Image priority src={logo} alt="Mobile phone with posts feed on it" />
       </Link>
       <nav>
         <ul>
