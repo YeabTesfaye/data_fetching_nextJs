@@ -1,6 +1,6 @@
 "use server";
 import { uploadImage } from "@/lib/cloudinary";
-import { storePost } from "@/lib/posts";
+import { storePost, updatePostLikeStatus } from "@/lib/posts";
 import { redirect } from "next/navigation";
 
 type FormState = {
@@ -25,7 +25,7 @@ export async function createPost(prevState: FormState, formData: FormData) {
     imageUrl = await uploadImage(image);
   } catch (error) {
     throw new Error("");
-  } 
+  }
   if (errors.length > 0) return { errors };
   await storePost({
     imageUrl,
@@ -34,4 +34,11 @@ export async function createPost(prevState: FormState, formData: FormData) {
     userId: 1,
   });
   redirect("/feed");
+}
+
+export async function togglePostLikeStatus(postId: number, formData: FormData) {
+  // console.log(formData);
+  console.log("post Id", postId);
+  console.log("formdata", formData)
+  updatePostLikeStatus(postId, 1);
 }

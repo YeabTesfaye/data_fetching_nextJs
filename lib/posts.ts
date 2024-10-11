@@ -108,7 +108,7 @@ export async function updatePostLikeStatus(
 
   const result = stmt.get(userId, postId) as CountResult;
   const isLiked = result.count === 0;
-
+  console.log("result",result, "isLiked", isLiked);
   if (isLiked) {
     const stmt = db.prepare(`
       INSERT INTO likes (user_id, post_id)

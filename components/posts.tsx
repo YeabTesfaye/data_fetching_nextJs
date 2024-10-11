@@ -1,12 +1,14 @@
-import { formatDate } from '@/lib/format';
-import LikeButton from './like-icon';
-import { Post as PostInteface } from '@/lib/posts';
+import { formatDate } from "@/lib/format";
+import LikeButton from "./like-icon";
+import { Post as PostInteface } from "@/lib/posts";
+import { togglePostLikeStatus } from "@/actions/posts";
+import { FormEvent } from "react";
 
-interface Props{
-    post? : PostInteface
-    posts? : PostInteface[]
+interface Props {
+  post: PostInteface;
+  posts?: PostInteface[];
 }
-function Post({ post } : Props) {
+function Post({ post }: Props) {
   return (
     <article className="post">
       <div className="post-image">
@@ -17,14 +19,19 @@ function Post({ post } : Props) {
           <div>
             <h2>{post?.title}</h2>
             <p>
-              Shared by {post?.userFirstName} on{' '}
+              Shared by {post?.userFirstName} on{" "}
               <time dateTime={post?.createdAt}>
                 {formatDate(post?.createdAt)}
               </time>
             </p>
           </div>
           <div>
-            <LikeButton />
+            <form
+              action={togglePostLikeStatus.bind(null, post?.id)}
+              className={post.isLiked ? "liked" : ""}
+            >
+              <LikeButton />
+            </form>
           </div>
         </header>
         <p>{post?.content}</p>
@@ -33,7 +40,7 @@ function Post({ post } : Props) {
   );
 }
 
-export default function Posts({ posts } : Props) {
+export default function Posts({ posts }: Props) {
   if (!posts || posts.length === 0) {
     return <p>There are no posts yet. Maybe start sharing some?</p>;
   }
